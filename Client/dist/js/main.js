@@ -26206,7 +26206,7 @@ var DisplayRepositoryBox=React.createClass({displayName: "DisplayRepositoryBox",
 		repoDbObj.Access=repoObject.private;
 		repoDbObj.Stars=repoObject.stargazers_count;
 		repoDbObj.Category=Category;
-		var url="http://localhost:8085/repos/AddRepositories";
+		var url="http://localhost:8080/repos/AddRepositories";
 		$.ajax({
 			url:url,
 			type:'POST',
@@ -26269,7 +26269,7 @@ var DisplayRepositoryBox=React.createClass({displayName: "DisplayRepositoryBox",
 			React.createElement("hr", null), 
 			React.createElement(ModalCategory, {onAdd: this.handleAddRepository, id: RepoObject.id, RepoObj: RepoObject})
 			)
-			
+
 			);
 		}
 		else{
@@ -26297,15 +26297,14 @@ var DisplayRepositoryBox=React.createClass({displayName: "DisplayRepositoryBox",
 			React.createElement("hr", null), 
 			React.createElement(ModalCategory, {onAdd: this.handleAddRepository, id: RepoObject.id, RepoObj: RepoObject})
 			)
-			 
+
 			);
 	}
 }
 });
 
 module.exports=DisplayRepositoryBox;
-
-},{"./ModalCategory":242,"react":232}],238:[function(require,module,exports){
+},{"./ModalCategory":243,"react":232}],238:[function(require,module,exports){
 var React=require('react');
 
 var Examples=React.createClass({displayName: "Examples",
@@ -26326,9 +26325,9 @@ var GetFavouriteRepositories=React.createClass({displayName: "GetFavouriteReposi
 	getInitialState:function(){
 		return({SelectOptions:[], value:'select'})
 	},
-	
+
 	componentDidMount:function(){
-		var url="http://localhost:8085/repos/GetCategoryOptions";
+		var url="http://localhost:8080/repos/GetCategoryOptions";
 		$.ajax({
 			url:url,
 			type:'GET',
@@ -26349,7 +26348,7 @@ var GetFavouriteRepositories=React.createClass({displayName: "GetFavouriteReposi
 		var categoryObj={};
 		categoryObj.category=event.target.value;
 		this.setState({value:event.target.value});
-		var url="http://localhost:8085/repos/GetCategoryFavourites";
+		var url="http://localhost:8080/repos/GetCategoryFavourites";
 		$.ajax({
 			url:url,
 			type:'POST',
@@ -26359,14 +26358,14 @@ var GetFavouriteRepositories=React.createClass({displayName: "GetFavouriteReposi
 				console.log(data);
 			}.bind(this),
 			error:function(err){
-				console.log(err);	
+				console.log(err);
 			}.bind(this)
 		});
 	},
 
 	render:function(){
-		
-		
+
+
 		console.log(this.state.SelectOptions.length);
 		var SelectListArr=this.state.SelectOptions.map(function(option){
 			console.log('entering');
@@ -26467,6 +26466,38 @@ return(
 
 });module.exports = LoginComponent;
 },{"react":232,"react-router":81}],241:[function(require,module,exports){
+var React = require('react');
+var {browserHistory}= require ('react-router');
+var LogoutComponent = React.createClass({displayName: "LogoutComponent",
+ logout(){
+   $.ajax({
+     url:'http://localhost:8080/logout',
+     type: 'GET',
+     success: function(data)
+     {
+    console.log("Ajax logout success");
+      browserHistory.push('/');
+     }.bind(this),
+     error: function(err)
+     {
+       console.log(err);
+     }.bind(this)
+   });
+ },
+componentDidMount:function(){
+   this.logout();
+},
+ render : function () {
+   return(
+      React.createElement("div", null, 
+      React.createElement("h1", null, "User logging out")
+)
+   )
+ }
+});
+
+module.exports = LogoutComponent;
+},{"react":232,"react-router":81}],242:[function(require,module,exports){
 var React=require('react');
 var NavComponent=require('./Nav');
 
@@ -26482,7 +26513,7 @@ var MainComponent=React.createClass({displayName: "MainComponent",
 	});
 
 	module.exports=MainComponent;
-},{"./Nav":243,"react":232}],242:[function(require,module,exports){
+},{"./Nav":244,"react":232}],243:[function(require,module,exports){
 var React=require('react');
 
 var ModalCategory=React.createClass({displayName: "ModalCategory",
@@ -26569,7 +26600,7 @@ var ModalCategory=React.createClass({displayName: "ModalCategory",
 
 module.exports=ModalCategory;
 
-},{"react":232}],243:[function(require,module,exports){
+},{"react":232}],244:[function(require,module,exports){
 var React=require('react');
 var Link=require('react-router').Link;
 var IndexLink=require('react-router').IndexLink;
@@ -26603,7 +26634,7 @@ var Nav=React.createClass({displayName: "Nav",
 							React.createElement(Link, {to: "/search"}, " Search ")
 						), 
 						React.createElement("li", null, 
-							React.createElement(Link, {to: "/logout"}, " Logout ")
+							React.createElement(Link, {to: "/LogoutComponent"}, " Logout ")
 						), 
 						React.createElement("li", null, 
 							React.createElement(Link, {to: "/LoginComponent"}, "login")
@@ -26653,7 +26684,7 @@ var Nav=React.createClass({displayName: "Nav",
 });
 
 module.exports=Nav;
-},{"react":232,"react-router":81}],244:[function(require,module,exports){
+},{"react":232,"react-router":81}],245:[function(require,module,exports){
 var React=require('react');
 var SearchComponent=require('./SearchComponent');
 var DisplayComponent=require('./DisplayComponent');
@@ -26721,7 +26752,7 @@ var ParentComponent=React.createClass({displayName: "ParentComponent",
 
 module.exports=ParentComponent;
 
-},{"./DisplayComponent":236,"./SearchComponent":245,"react":232}],245:[function(require,module,exports){
+},{"./DisplayComponent":236,"./SearchComponent":246,"react":232}],246:[function(require,module,exports){
 var React=require('react');
 
 var SearchComponent=React.createClass({displayName: "SearchComponent",
@@ -26791,7 +26822,7 @@ var SearchComponent=React.createClass({displayName: "SearchComponent",
 
 module.exports=SearchComponent;
 
-},{"react":232}],246:[function(require,module,exports){
+},{"react":232}],247:[function(require,module,exports){
 var React=require('react');
 var ReactDOM=require('react-dom');
 var Route=require('react-router').Route;
@@ -26800,6 +26831,7 @@ var {browserHistory}= require ('react-router');
 var IndexRoute=require('react-router').IndexRoute;
 var hashHistory=require('react-router').hashHistory;
 var LoginComponent=require('./Components/LoginComponent');
+var LogoutComponent=require('./Components/LogoutComponent');
 var MainComponent=require('./Components/MainComponent');
 var About=require('./Components/About');
 var ParentComponent=require('./Components/ParentComponent');
@@ -26810,6 +26842,7 @@ ReactDOM.render(
 	React.createElement(Router, {history: browserHistory}, 
 		React.createElement(Route, {path: "/", component: MainComponent}, 
 		React.createElement(Route, {path: "LoginComponent", component: LoginComponent}), 
+		React.createElement(Route, {path: "LogoutComponent", component: LogoutComponent}), 
 		React.createElement(Route, {path: "about", component: About}), 
 		React.createElement(Route, {path: "examples", component: Examples}), 
 		React.createElement(Route, {path: "getFavourites", component: GetFavouriteRepositories}), 
@@ -26817,4 +26850,4 @@ ReactDOM.render(
 		)
 	),
 	document.getElementById('app')); //puts the virtual dom & injects into the main physical DOM.
-},{"./Components/About":235,"./Components/Examples":238,"./Components/GetFavouriteRepositories":239,"./Components/LoginComponent":240,"./Components/MainComponent":241,"./Components/ParentComponent":244,"react":232,"react-dom":51,"react-router":81}]},{},[246]);
+},{"./Components/About":235,"./Components/Examples":238,"./Components/GetFavouriteRepositories":239,"./Components/LoginComponent":240,"./Components/LogoutComponent":241,"./Components/MainComponent":242,"./Components/ParentComponent":245,"react":232,"react-dom":51,"react-router":81}]},{},[247]);

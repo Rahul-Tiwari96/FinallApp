@@ -5,9 +5,9 @@ var GetFavouriteRepositories=React.createClass({
 	getInitialState:function(){
 		return({SelectOptions:[], value:'select'})
 	},
-	
+
 	componentDidMount:function(){
-		var url="http://localhost:8085/repos/GetCategoryOptions";
+		var url="http://localhost:8080/repos/GetCategoryOptions";
 		$.ajax({
 			url:url,
 			type:'GET',
@@ -28,7 +28,7 @@ var GetFavouriteRepositories=React.createClass({
 		var categoryObj={};
 		categoryObj.category=event.target.value;
 		this.setState({value:event.target.value});
-		var url="http://localhost:8085/repos/GetCategoryFavourites";
+		var url="http://localhost:8080/repos/GetCategoryFavourites";
 		$.ajax({
 			url:url,
 			type:'POST',
@@ -38,14 +38,14 @@ var GetFavouriteRepositories=React.createClass({
 				console.log(data);
 			}.bind(this),
 			error:function(err){
-				console.log(err);	
+				console.log(err);
 			}.bind(this)
 		});
 	},
 
 	render:function(){
-		
-		
+
+
 		console.log(this.state.SelectOptions.length);
 		var SelectListArr=this.state.SelectOptions.map(function(option){
 			console.log('entering');

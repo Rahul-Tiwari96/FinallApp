@@ -6,6 +6,7 @@ var {browserHistory}= require ('react-router');
 var IndexRoute=require('react-router').IndexRoute;
 var hashHistory=require('react-router').hashHistory;
 var LoginComponent=require('./Components/LoginComponent');
+var LogoutComponent=require('./Components/LogoutComponent');
 var MainComponent=require('./Components/MainComponent');
 var About=require('./Components/About');
 var ParentComponent=require('./Components/ParentComponent');
@@ -16,6 +17,7 @@ ReactDOM.render(
 	<Router history={browserHistory}>
 		<Route path="/" component={MainComponent}>
 		<Route path="LoginComponent" component={LoginComponent}></Route>
+		<Route path="LogoutComponent" component={LogoutComponent}></Route>
 		<Route path="about" component={About}></Route>
 		<Route path="examples" component={Examples}></Route>
 		<Route path="getFavourites" component={GetFavouriteRepositories}></Route>

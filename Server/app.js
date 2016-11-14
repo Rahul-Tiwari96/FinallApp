@@ -33,6 +33,13 @@ app.use('/', routes);
 app.use('/users', user);
 app.use('/repos', RepoRoutes);
 
+//logout
+app.get('/logout',function(req,res,next){
+ console.log("Session Deleted");
+ req.logout();
+ res.send("logged out");
+});
+
 //second editing..
 app.post('/login',passport.authenticate('local', { failureFlash: 'Error',successFlash:'success' }),
 function(req, res) {

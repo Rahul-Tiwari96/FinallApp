@@ -31,7 +31,7 @@ var Nav=React.createClass({
 							<Link to="/search"> Search </Link>
 						</li>
 						<li>
-							<Link to="/logout"> Logout </Link>
+							<Link to="/LogoutComponent"> Logout </Link>
 						</li>
 						<li>
 							<Link to="/LoginComponent">login</Link>
